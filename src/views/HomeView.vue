@@ -1,7 +1,9 @@
-<template>
-  <h1>Hello world<span>!</span></h1>
-</template>
+<template></template>
 
 <script lang="ts"></script>
 
-<style lang="scss"></style>
+<style lang="scss">
+body {
+  height: 110vh;
+}
+</style>
