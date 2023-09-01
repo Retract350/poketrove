@@ -1,4 +1,6 @@
-<template></template>
+<template>
+  <h1 style="color: white">Test branch</h1>
+</template>
 
 <script lang="ts"></script>
 
