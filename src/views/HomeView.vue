@@ -4,12 +4,4 @@
 
 <script lang="ts"></script>
 
-<style lang="scss">
-h1 {
-  color: blue;
-
-  span {
-    color: red;
-  }
-}
-</style>
+<style lang="scss"></style>
