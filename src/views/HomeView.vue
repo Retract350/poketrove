@@ -12,8 +12,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import getCards from "../composables/getCards";
+import getSetsOnLoad from "../composables/getSetsOnLoad";
 
 const searchTerm = "";
 
@@ -22,6 +23,9 @@ let isActive = ref(1);
 const toggleSearchBy = (param: string) => {
   param === "card" ? (isActive.value = 1) : (isActive.value = 2);
 };
+
+// Test beforeMount trigger function
+onBeforeMount(getSetsOnLoad);
 </script>
 
 <style lang="scss">

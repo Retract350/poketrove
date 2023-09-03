@@ -1,7 +1,7 @@
 const APIKey = "f632b8f7-2990-4593-9768-584578b57697";
 
 const cardsURL: string = "https://api.pokemontcg.io/v2/cards?q=name:";
-const setURL: string = "https://api.pokemontcg.io/v2/cards?q=set.name:";
+const setURL: string = "https://api.pokemontcg.io/v2/cards?q=set.id:";
 
 const getCards = async (parameter: number, term: string) => {
   let queryURL: string;
