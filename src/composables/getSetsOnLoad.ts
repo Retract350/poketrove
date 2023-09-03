@@ -1,3 +1,5 @@
+const setArray: Array<any> = [];
+
 const getSetsOnLoad = async () => {
   try {
     const res = await fetch("https://api.pokemontcg.io/v2/sets", {
@@ -7,20 +9,24 @@ const getSetsOnLoad = async () => {
     });
 
     const returnObject = await res.json();
-    const setArray: Array<any> = [];
 
     returnObject.data.forEach((el: any) => {
       setArray.push({
         id: el.id,
         name: el.name,
-        releaseDate: el.releaseDate.substring(0, 4),
+        releaseDate: el.releaseDate,
       });
     });
 
     console.log(setArray);
+
+    // Sort setArray by date descending
+    setArray.sort((a, b) =>
+      a.releaseDate > b.releaseDate ? -1 : b.releaseDate > a.releaseDate ? 1 : 0
+    );
   } catch (error: any) {
     console.error(error.message);
   }
 };
 
-export default getSetsOnLoad;
+export { getSetsOnLoad, setArray };
