@@ -1,13 +1,28 @@
 <template>
-  <ul>
-    <li v-for="set in props.setArray">{{ set.name }}</li>
+  <button @click="toggleSetList">click to open dropdown</button>
+  <ul v-if="setListShow">
+    <li v-for="set in setArray" :key="set.id">
+      {{ set.id }}
+    </li>
   </ul>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps(["setArray"]);
+import setObject from "../types/setObject";
+import { PropType, computed, ref, watch } from "vue";
 
-console.log(props.setArray);
+const props = defineProps({
+  setArray: {
+    type: Array as PropType<setObject[]>,
+    required: true,
+  },
+});
+
+const setListShow = ref(false);
+
+function toggleSetList(): void {
+  setListShow.value = !setListShow.value;
+}
 </script>
 
 <style lang="scss">
