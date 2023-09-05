@@ -7,18 +7,21 @@
   </ul> -->
   <!-- <form @submit.prevent="getCards(searchByCard, searchTerm)">
     <div
-      @click="toggleSearchBy('card')"
-      :class="{ active: searchByCard === 1 }"
+    @click="toggleSearchBy('card')"
+    :class="{ active: searchByCard === 1 }"
     >
-      Cards
-    </div>
-    <div @click="toggleSearchBy('set')" :class="{ active: searchByCard === 2 }">
-      Set
-    </div>
-    <input type="text" v-model="searchTerm" />
-    <button>submit</button>
-  </form>
-  <div class="divider"></div> -->
+    Cards
+  </div>
+  <div @click="toggleSearchBy('set')" :class="{ active: searchByCard === 2 }">
+    Set
+  </div>
+  <input type="text" v-model="searchTerm" />
+  <button>submit</button>
+</form>
+<div class="divider"></div> -->
+
+  <!-- TEST BUTTON FOR SET DROPDOWN -->
+  <button @click="toggleSetsDropdown" v-if="true">view sets</button>
 
   <div class="search-container">
     <form @submit.prevent="submitSearch">
@@ -67,8 +70,6 @@
       </div>
     </form>
   </div>
-
-  <button @click="toggleSetsDropdown" v-if="true">view sets</button>
 </template>
 
 <script lang="ts" setup>
