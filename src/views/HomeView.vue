@@ -17,7 +17,7 @@ let isActive = ref(1);
 // };
 
 // Test beforeMount trigger function
-onBeforeMount(getSetsOnLoad);
+// onBeforeMount(getSetsOnLoad);
 </script>
 
 <style lang="scss">

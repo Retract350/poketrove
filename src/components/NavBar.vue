@@ -37,7 +37,8 @@
 
     .button {
       background-color: $color-purple;
-      padding: 0.75rem 1.75rem;
+      font-size: 0.875rem;
+      padding: 0.625rem 1.5rem;
       border-radius: $radius-medium;
       margin: 0 1.25rem;
     }

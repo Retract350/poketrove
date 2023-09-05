@@ -21,44 +21,61 @@
   <div class="divider"></div> -->
 
   <div class="search-container">
-    <div class="search-inputs" :class="{ corner: viewSearchByDropdown }">
-      <a class="search-by" @click="toggleSearchByDropdown">
-        Search {{ activeSearchBy }}
-        <svg
-          :class="{ flip: viewSearchByDropdown }"
-          width="24px"
-          height="24px"
-          stroke-width="1"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          color="#000000"
-        >
-          <path
-            d="M6 9l6 6 6-6"
-            stroke="#000000"
+    <form @submit.prevent="submitSearch">
+      <div class="search-inputs" :class="{ corner: viewSearchByDropdown }">
+        <!-- "Search By" element, default to Cards on load -->
+        <a class="search-by" @click="toggleSearchByDropdown">
+          {{ activeSearchBy }}
+          <svg
+            :class="{ flip: viewSearchByDropdown }"
+            width="24px"
+            height="24px"
             stroke-width="1"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
-        </svg>
-      </a>
-      <input type="text" class="search-input" placeholder="Search..." />
-    </div>
-    <div
-      class="search-by-dropdown"
-      v-if="viewSearchByDropdown"
-      @click="toggleSearchBy(searchByCard === true ? 'set' : 'card')"
-    >
-      <a class="search-by"> Search {{ altSearchBy }} </a>
-    </div>
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            color="#000000"
+          >
+            <path
+              d="M6 9l6 6 6-6"
+              stroke="#000000"
+              stroke-width="1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+        </a>
+
+        <!-- Search by cards text area -->
+        <input type="text" class="search-input" placeholder="Search..." />
+      </div>
+
+      <!-- Change "Search By" dropdown -->
+      <div
+        class="search-by-dropdown"
+        v-if="viewSearchByDropdown"
+        @click="toggleSearchBy(searchByCard === true ? 'set' : 'card')"
+      >
+        <a class="search-by">{{ altSearchBy }} </a>
+      </div>
+
+      <!-- Searchable Sets dropdown -->
+      <div v-if="viewSetsDropdown">
+        <ul>
+          <li v-for="set in setArray" style="color: white">{{ set.name }}</li>
+        </ul>
+      </div>
+    </form>
   </div>
+
+  <button @click="toggleSetsDropdown" v-if="true">view sets</button>
 </template>
 
 <script lang="ts" setup>
 import setObject from "../types/setObject";
 import getCards from "../composables/getCards";
-import { PropType, computed, ref, watch } from "vue";
+import { PropType, computed, onBeforeMount, ref, watch } from "vue";
+import { getSetsOnLoad } from "@/composables/getSetsOnLoad";
 
 const props = defineProps({
   setArray: {
@@ -86,20 +103,30 @@ function toggleSearchBy(param: string): void {
     searchByCard.value = true;
     activeSearchBy.value = "Cards";
     altSearchBy.value = "Sets";
+
+    console.log("searching by " + activeSearchBy.value);
   } else {
     searchByCard.value = false;
     activeSearchBy.value = "Sets";
     altSearchBy.value = "Cards";
+
+    console.log("searching by " + activeSearchBy.value);
   }
 
   viewSearchByDropdown.value = false;
 }
 
-// const setListShow = ref(false);
+function submitSearch() {
+  console.log("searching");
+}
 
-// function toggleSetList(): void {
-//   setListShow.value = !setListShow.value;
-// }
+const viewSetsDropdown = ref(false);
+
+function toggleSetsDropdown(): void {
+  viewSetsDropdown.value = !viewSetsDropdown.value;
+}
+
+onBeforeMount(getSetsOnLoad);
 </script>
 
 <style lang="scss">
@@ -127,8 +154,9 @@ function toggleSearchBy(param: string): void {
   .search-by {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 100%;
-    width: 35%;
+    width: 20%;
     border-right: 2px solid $bg-primary;
     font-size: $font-small;
     padding-right: 0.75rem;
@@ -154,7 +182,7 @@ function toggleSearchBy(param: string): void {
 }
 
 .search-by-dropdown {
-  width: 36%;
+  width: 22%;
   height: 2rem;
   background-color: $shade-white;
   display: flex;
