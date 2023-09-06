@@ -17,3 +17,19 @@
 @mixin text-white {
   color: $shade-white;
 }
+
+@mixin pad-top($size) {
+  padding-top: $size;
+}
+
+@mixin pad-right($size) {
+  padding-right: $size;
+}
+
+@mixin pad-bottom($size) {
+  padding-bottom: $size;
+}
+
+@mixin pad-left($size) {
+  padding-left: $size;
+}
