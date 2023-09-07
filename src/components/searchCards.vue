@@ -29,38 +29,33 @@
         <!-- "Search By" element, default to Cards on load -->
         <a class="search-by" @click="toggleSearchByDropdown">
           {{ activeSearchBy }}
-          <svg
+          <img
+            src="../assets/chevron-down-outline.svg"
+            alt="Toggle dropdown menu"
             :class="{ flip: viewSearchByDropdown }"
-            width="24px"
-            height="24px"
-            stroke-width="1"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            color="#000000"
-          >
-            <path
-              d="M6 9l6 6 6-6"
-              stroke="#000000"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></path>
-          </svg>
+            class="svg"
+          />
         </a>
 
         <div class="column-border"></div>
 
         <!-- Search by cards text area -->
-        <input
-          type="text"
-          class="search-input"
-          placeholder="Search..."
-          :class="{ cornerRight: viewSetsDropdown }"
-          v-model="searchTerm"
-          @click="toggleSetsDropdown"
-        />
-
+        <div class="input-flex">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search..."
+            :class="{ cornerRight: viewSetsDropdown }"
+            v-model="searchTerm"
+            @focus="toggleSetsDropdown"
+          />
+          <img
+            src="../assets/search-outline.svg"
+            alt="Search icon"
+            class="search-icon"
+            @click="console.log('submit search ' + selectedSet)"
+          />
+        </div>
         <!-- Add both "Search By" and "Search Sets" dropdowns -->
         <!-- Change "Search By" dropdown -->
         <div
@@ -75,7 +70,11 @@
         <!-- Searchable Sets dropdown -->
         <div v-if="viewSetsDropdown" class="sets-dropdown">
           <ul>
-            <li v-for="set in setArray" :key="set.id">
+            <li
+              v-for="set in setArray"
+              :key="set.id"
+              @click="selectSet(set.name)"
+            >
               {{ set.name }} ({{ set.releaseDate.substring(0, 4) }})
             </li>
           </ul>
@@ -108,6 +107,8 @@ const activeSearchBy = ref("Cards");
 
 const altSearchBy = ref("Sets");
 
+const selectedSet = ref("");
+
 function toggleSearchByDropdown(): void {
   viewSearchByDropdown.value = !viewSearchByDropdown.value;
 }
@@ -120,14 +121,10 @@ function toggleSearchBy(param: string): void {
 
     // Close sets dropdown if it is open
     viewSetsDropdown.value = false;
-
-    console.log("searching by " + activeSearchBy.value);
   } else {
     searchByCard.value = false;
     activeSearchBy.value = "Sets";
     altSearchBy.value = "Cards";
-
-    console.log("searching by " + activeSearchBy.value);
   }
 
   viewSearchByDropdown.value = false;
@@ -145,6 +142,13 @@ function toggleSetsDropdown(): void {
   } else {
     return;
   }
+}
+
+function selectSet(setName: string): void {
+  selectedSet.value = setName;
+  searchTerm.value = setName;
+
+  toggleSetsDropdown();
 }
 
 onBeforeMount(getSetsOnLoad);
@@ -183,13 +187,15 @@ onBeforeMount(getSetsOnLoad);
     font-size: $font-small;
     padding-left: 1rem;
 
-    svg {
+    img {
+      height: 1rem;
       padding-left: 0.25rem;
     }
   }
 
   .search-input {
     height: 2rem;
+    width: 85%;
     background-color: inherit;
     border: none;
     font-size: $font-primary;
@@ -234,6 +240,7 @@ onBeforeMount(getSetsOnLoad);
 
 .sets-dropdown {
   background-color: $shade-white;
+  width: 97%;
   overflow-x: hidden;
   overflow-y: scroll;
   height: 13rem;
@@ -256,5 +263,22 @@ onBeforeMount(getSetsOnLoad);
       cursor: pointer;
     }
   }
+}
+
+.search-icon {
+  height: 1.25rem;
+  padding: 0 0.75rem 0 0.5rem;
+  border-left: 1px solid $shade-grey;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.input-flex {
+  @include flex(row);
+
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
