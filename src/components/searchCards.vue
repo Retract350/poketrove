@@ -48,12 +48,13 @@
             :class="{ cornerRight: viewSetsDropdown }"
             v-model="searchTerm"
             @focus="toggleSetsDropdown"
+            @blur="viewSetsDropdown = false"
           />
           <img
             src="../assets/search-outline.svg"
             alt="Search icon"
             class="search-icon"
-            @click="console.log('submit search ' + selectedSet)"
+            @click="submitSearch"
           />
         </div>
 
@@ -74,7 +75,7 @@
             <li
               v-for="set in setArray"
               :key="set.id"
-              @click="selectSet(set.name)"
+              @mousedown="selectSet(set)"
               v-show="searchDropdown(set)"
             >
               {{ set.name }} ({{ set.releaseDate.substring(0, 4) }})
@@ -134,6 +135,12 @@ function toggleSearchBy(param: string): void {
 
 function submitSearch() {
   console.log(searchTerm.value);
+
+  if (activeSearchBy.value === "Cards") {
+    getCards(searchByCard.value, searchTerm.value);
+  } else {
+    getCards(searchByCard.value, selectedSet.value);
+  }
 }
 
 const viewSetsDropdown = ref(false);
@@ -144,11 +151,12 @@ function toggleSetsDropdown(): void {
   } else {
     viewSetsDropdown.value = false;
   }
+  viewSearchByDropdown.value = false;
 }
 
-function selectSet(setName: string): void {
-  selectedSet.value = setName;
-  searchTerm.value = setName;
+function selectSet(set: any): void {
+  selectedSet.value = set.id;
+  searchTerm.value = set.name;
 
   viewSetsDropdown.value = false;
 }
