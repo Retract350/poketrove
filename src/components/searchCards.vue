@@ -271,7 +271,7 @@ onBeforeMount(getSetsOnLoad);
 
   li {
     list-style: none;
-    height: 2rem;
+    min-height: 2rem;
     padding: 0.5rem 0 0.5rem 0.5rem;
     border-bottom: 1px solid $shade-grey;
 
