@@ -56,6 +56,7 @@
             @click="console.log('submit search ' + selectedSet)"
           />
         </div>
+
         <!-- Add both "Search By" and "Search Sets" dropdowns -->
         <!-- Change "Search By" dropdown -->
         <div
@@ -74,6 +75,7 @@
               v-for="set in setArray"
               :key="set.id"
               @click="selectSet(set.name)"
+              v-show="searchDropdown(set)"
             >
               {{ set.name }} ({{ set.releaseDate.substring(0, 4) }})
             </li>
@@ -138,9 +140,9 @@ const viewSetsDropdown = ref(false);
 
 function toggleSetsDropdown(): void {
   if (searchByCard.value === false) {
-    viewSetsDropdown.value = !viewSetsDropdown.value;
+    viewSetsDropdown.value = true;
   } else {
-    return;
+    viewSetsDropdown.value = false;
   }
 }
 
@@ -148,7 +150,22 @@ function selectSet(setName: string): void {
   selectedSet.value = setName;
   searchTerm.value = setName;
 
-  toggleSetsDropdown();
+  viewSetsDropdown.value = false;
+}
+
+function searchDropdown(set: any): Boolean {
+  let setString = (
+    set.name +
+    "(" +
+    set.releaseDate.substring(0, 4) +
+    ")"
+  ).toLowerCase();
+
+  if (setString.includes(searchTerm.value.toLowerCase())) {
+    return true;
+  }
+
+  return false;
 }
 
 onBeforeMount(getSetsOnLoad);
@@ -240,21 +257,21 @@ onBeforeMount(getSetsOnLoad);
 
 .sets-dropdown {
   background-color: $shade-white;
+  height: 13rem;
   width: 97%;
   overflow-x: hidden;
   overflow-y: scroll;
-  height: 13rem;
   border-bottom-left-radius: $radius-medium;
   border-bottom-right-radius: $radius-medium;
   border-top: 1px solid $shade-grey;
 
-  ul {
-    // padding: 0.25rem 0 0.25rem 0.5rem;
-  }
+  // ul {
+  // padding: 0.25rem 0 0.25rem 0.5rem;
+  // }
 
   li {
     list-style: none;
-    min-height: 2rem;
+    height: 2rem;
     padding: 0.5rem 0 0.5rem 0.5rem;
     border-bottom: 1px solid $shade-grey;
 
