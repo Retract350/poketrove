@@ -58,7 +58,7 @@
           placeholder="Search..."
           :class="{ cornerRight: viewSetsDropdown }"
           v-model="searchTerm"
-          @click="toggleSetsDropdown"
+          @focus="toggleSetsDropdown"
         />
 
         <!-- Add both "Search By" and "Search Sets" dropdowns -->
@@ -75,7 +75,11 @@
         <!-- Searchable Sets dropdown -->
         <div v-if="viewSetsDropdown" class="sets-dropdown">
           <ul>
-            <li v-for="set in setArray" :key="set.id">
+            <li
+              v-for="set in setArray"
+              :key="set.id"
+              v-show="searchDropdown(set)"
+            >
               {{ set.name }} ({{ set.releaseDate.substring(0, 4) }})
             </li>
           </ul>
@@ -141,10 +145,26 @@ const viewSetsDropdown = ref(false);
 
 function toggleSetsDropdown(): void {
   if (searchByCard.value === false) {
-    viewSetsDropdown.value = !viewSetsDropdown.value;
+    viewSetsDropdown.value = true;
   } else {
-    return;
+    viewSetsDropdown.value = false;
   }
+}
+
+function searchDropdown(set: any): Boolean {
+  let setString = (
+    set.name +
+    "(" +
+    set.releaseDate.substring(0, 4) +
+    ")"
+  ).toLowerCase();
+
+  // return true;
+  if (setString.includes(searchTerm.value.toLowerCase())) {
+    return true;
+  }
+
+  return false;
 }
 
 onBeforeMount(getSetsOnLoad);
@@ -241,9 +261,9 @@ onBeforeMount(getSetsOnLoad);
   border-bottom-right-radius: $radius-medium;
   border-top: 1px solid $shade-grey;
 
-  ul {
-    // padding: 0.25rem 0 0.25rem 0.5rem;
-  }
+  // ul {
+  // padding: 0.25rem 0 0.25rem 0.5rem;
+  // }
 
   li {
     list-style: none;
