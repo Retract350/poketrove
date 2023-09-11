@@ -1,28 +1,4 @@
 <template>
-  <!-- <button @click="toggleSetList">click to open dropdown</button>
-  <ul v-if="setListShow">
-    <li v-for="set in setArray" :key="set.id">
-      {{ set.name }}
-    </li>
-  </ul> -->
-  <!-- <form @submit.prevent="getCards(searchByCard, searchTerm)">
-    <div
-    @click="toggleSearchBy('card')"
-    :class="{ active: searchByCard === 1 }"
-    >
-    Cards
-  </div>
-  <div @click="toggleSearchBy('set')" :class="{ active: searchByCard === 2 }">
-    Set
-  </div>
-  <input type="text" v-model="searchTerm" />
-  <button>submit</button>
-</form>
-<div class="divider"></div> -->
-
-  <!-- TEST BUTTON FOR SET DROPDOWN -->
-  <button @click="toggleSetsDropdown">view sets</button>
-
   <div class="search-container">
     <form @submit.prevent="submitSearch">
       <div class="search-inputs" :class="{ cornerLeft: viewSearchByDropdown }">
@@ -85,20 +61,22 @@
       </div>
     </form>
   </div>
+  <cardsList :test-cards-arr="cardsArr" />
 </template>
 
 <script lang="ts" setup>
 import setObject from "../types/setObject";
-import getCards from "../composables/getCards";
-import { PropType, computed, onBeforeMount, ref, watch } from "vue";
-import { getSetsOnLoad } from "@/composables/getSetsOnLoad";
+import { getCards } from "../composables/getCards";
+import { PropType, Ref, computed, onBeforeMount, ref, watch } from "vue";
+import { getSetsOnLoad, setArray } from "@/composables/getSetsOnLoad";
+import cardsList from "./cardsList.vue";
 
-const props = defineProps({
-  setArray: {
-    type: Array as PropType<setObject[]>,
-    required: true,
-  },
-});
+// const props = defineProps({
+//   setArray: {
+//     type: Array as PropType<setObject[]>,
+//     required: true,
+//   },
+// });
 
 const searchByCard = ref(true);
 
@@ -111,6 +89,8 @@ const activeSearchBy = ref("Cards");
 const altSearchBy = ref("Sets");
 
 const selectedSet = ref("");
+
+const cardsArr: Ref<Array<any>> = ref([]);
 
 function toggleSearchByDropdown(): void {
   viewSearchByDropdown.value = !viewSearchByDropdown.value;
@@ -133,13 +113,13 @@ function toggleSearchBy(param: string): void {
   viewSearchByDropdown.value = false;
 }
 
-function submitSearch() {
+async function submitSearch() {
   console.log(searchTerm.value);
 
   if (activeSearchBy.value === "Cards") {
-    getCards(searchByCard.value, searchTerm.value);
+    cardsArr.value = await getCards(searchByCard.value, searchTerm.value);
   } else {
-    getCards(searchByCard.value, selectedSet.value);
+    cardsArr.value = await getCards(searchByCard.value, selectedSet.value);
   }
 }
 
@@ -185,9 +165,8 @@ onBeforeMount(getSetsOnLoad);
 
 .search-container {
   width: 33rem;
-  margin: 2rem auto;
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
 }
 
 .search-inputs {
@@ -272,10 +251,7 @@ onBeforeMount(getSetsOnLoad);
   border-bottom-left-radius: $radius-medium;
   border-bottom-right-radius: $radius-medium;
   border-top: 1px solid $shade-grey;
-
-  // ul {
-  // padding: 0.25rem 0 0.25rem 0.5rem;
-  // }
+  z-index: 5;
 
   li {
     list-style: none;

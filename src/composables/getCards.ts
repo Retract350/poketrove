@@ -3,10 +3,15 @@ const APIKey = "f632b8f7-2990-4593-9768-584578b57697";
 const cardsURL: string = "https://api.pokemontcg.io/v2/cards?q=name:";
 const setURL: string = "https://api.pokemontcg.io/v2/cards?q=set.id:";
 
+let cardsArr: Array<any> = [];
+
 const getCards = async (cards: Boolean, term: string) => {
   let data: any;
   let queryURL: string;
 
+  cardsArr = [];
+
+  // Construct query URL based on searching cards or sets
   if (cards) {
     queryURL = cardsURL + term;
 
@@ -20,6 +25,7 @@ const getCards = async (cards: Boolean, term: string) => {
     queryURL = "";
   }
 
+  // Send fetch request
   if (queryURL) {
     try {
       const res = await fetch(queryURL, {
@@ -30,6 +36,17 @@ const getCards = async (cards: Boolean, term: string) => {
       data = await res.json();
 
       console.log(data);
+      // push cards into cardsArr
+      data.data.forEach((entry: any) => {
+        cardsArr.push({
+          id: entry.id,
+          images: entry.images,
+          name: entry.name,
+          number: entry.number,
+          setDetails: entry.set,
+          pricing: entry.tcgplayer,
+        });
+      });
     } catch (err: any) {
       console.error(err);
     }
@@ -60,13 +77,26 @@ const getCards = async (cards: Boolean, term: string) => {
 
         const nextData = await res.json();
         console.log(nextData);
+        // Push to cardsArr
+        nextData.data.forEach((entry: any) => {
+          cardsArr.push({
+            id: entry.id,
+            images: entry.images,
+            name: entry.name,
+            number: entry.number,
+            details: entry.set,
+            pricing: entry.tcgplayer,
+          });
+        });
       } catch (err: any) {
         console.error(err.message);
       }
-
       console.log(totalReq);
     }
   }
+
+  console.log(cardsArr);
+  return cardsArr;
 };
 
-export default getCards;
+export { getCards };
