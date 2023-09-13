@@ -3,7 +3,7 @@ $bg-primary: #01000a;
 
 // Main colors
 $shade-white: #efefef;
-$shade-light-grey: #dcdcdc;
+$shade-light-grey: #cedcdc;
 $shade-grey: #979797;
 $color-blue: #7fd8be;
 $color-purple: #7855b4;
@@ -13,6 +13,10 @@ $color-red: #c71a37;
 $light-blue: #e0f5ef;
 $light-purple: #9a7fc7;
 $light-red: #e32646;
+
+// Box Shadow colors
+$shadow-black: rgb(0, 0, 0, 0.4);
+$shadow-blue: rgb(127, 216, 190);
 
 // Font sizes
 $font-small: 0.875rem;

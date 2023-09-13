@@ -121,6 +121,8 @@ async function submitSearch() {
   } else {
     cardsArr.value = await getCards(searchByCard.value, selectedSet.value);
   }
+
+  searchTerm.value = "";
 }
 
 const viewSetsDropdown = ref(false);
@@ -174,7 +176,7 @@ onBeforeMount(getSetsOnLoad);
   grid-template-columns: 20% 0.125rem 80%;
   width: 100%;
   height: 2rem;
-  background-color: $shade-white;
+  background-color: $shade-light-grey;
   // padding: 0 1rem;
   border-radius: $radius-medium;
 
