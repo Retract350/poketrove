@@ -5,9 +5,19 @@
         <img :src="card.images.small" :alt="card.name" />
       </div>
       <div class="card-details">
-        <p>
-          {{ card.name }} ({{ card.number }}/{{ card.setDetails.printedTotal }})
-        </p>
+        <div class="card-name">
+          <p class="bold">{{ card.name }}</p>
+          <p>({{ card.number }}/{{ card.setDetails.printedTotal }})</p>
+        </div>
+        <div class="set-pricing">
+          <p>
+            <p><span class="bold">Set:</span> {{ card.setDetails.name }} ({{ card.setDetails.releaseDate.substring(0, 4) }})</p>
+          </p>
+          <!-- <p v-if="card.pricing?.prices?.holofoil?.market">
+            <span class="bold">holofoil market price: {{ card.pricing.prices.holofoil.market }}</span>
+          </p>
+          <p v-else><span>No price data available</span></p> -->
+        </div>
       </div>
     </div>
   </div>
@@ -16,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, ref } from "vue";
+import { PropType, computed, ref } from "vue";
 // import { cardsArr } from "../composables/getCards";
 
 const props = defineProps({
@@ -33,20 +43,24 @@ const props = defineProps({
 @import "../assets/variables.scss";
 
 .cards-list-container {
-  // width: 75vw;
+  width: 75%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  row-gap: 2rem;
+  // justify-content: center;
+  // align-items: center;
 
   .card {
-    background-color: $shade-light-grey;
+    background-color: $light-blue;
     display: flex;
-    gap: 1rem;
+    // gap: 1rem;
     height: 15rem;
-    width: 40rem;
+    width: 95%;
     padding: 1rem;
     border-radius: $radius-medium;
     box-shadow: 0 0 1rem $shadow-blue;
+    margin: 0 auto;
+    font-size: 1.125rem;
 
     .card-image {
       // display: inline-block;
@@ -55,13 +69,32 @@ const props = defineProps({
       overflow: hidden;
       border-radius: 0.375rem;
       box-shadow: 2px 2px 0.5rem $shadow-black;
+      margin-right: 24px;
 
-      img {
-        // height: 12rem;
-        // min-width: 100%;
-        // min-height: 100%;
+      // img {
+      // height: 12rem;
+      // min-width: 100%;
+      // min-height: 100%;
+      // }
+    }
+
+    .card-details {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .card-name {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 3px solid $bg-primary;
       }
     }
   }
+}
+
+.bold {
+  font-size: 1.25rem;
+  font-weight: $font-heavy;
 }
 </style>
