@@ -13,10 +13,17 @@
           <p>
             <p><span class="bold">Set:</span> {{ card.setDetails.name }} ({{ card.setDetails.releaseDate.substring(0, 4) }})</p>
           </p>
-          <!-- <p v-if="card.pricing?.prices?.holofoil?.market">
-            <span class="bold">holofoil market price: {{ card.pricing.prices.holofoil.market }}</span>
-          </p>
-          <p v-else><span>No price data available</span></p> -->
+          <div class="pricing" v-if="card.pricing?.prices">
+            <p v-if="card.pricing?.prices?.normal?.market">
+              <span class="bold">Non-holo: ${{ card.pricing.prices.normal.market }}</span>
+            </p>
+            <p v-if="card.pricing?.prices?.holofoil?.market">
+              <span class="bold">Holo: ${{ card.pricing.prices.holofoil.market }}</span>
+            </p>
+          </div>
+          <div class="no-pricing" v-else>
+            <p ><span>No price data available</span></p>
+          </div>
         </div>
       </div>
     </div>
