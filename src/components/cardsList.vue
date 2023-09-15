@@ -13,12 +13,21 @@
           <p>
             <p><span class="bold">Set:</span> {{ card.setDetails.name }} ({{ card.setDetails.releaseDate.substring(0, 4) }})</p>
           </p>
-          <div class="pricing" v-if="card.pricing?.prices">
-            <p v-if="card.pricing?.prices?.normal?.market">
-              <span class="bold">Non-holo: ${{ card.pricing.prices.normal.market }}</span>
+          <div class="pricing" v-if="card.pricing">
+            <p v-if="card.pricing.nonHolo">
+              <span class="bold">Non-holo:</span> ${{ card.pricing.nonHolo }}
             </p>
-            <p v-if="card.pricing?.prices?.holofoil?.market">
-              <span class="bold">Holo: ${{ card.pricing.prices.holofoil.market }}</span>
+            <p v-if="card.pricing.reverseHolo">
+              <span class="bold">Reverse Holo:</span> ${{ card.pricing.reverseHolo }}
+            </p>
+            <p v-if="card.pricing.holo">
+              <span class="bold">Holo:</span> ${{ card.pricing.holo }}
+            </p>
+            <p v-if="card.pricing.unlimitedHolo">
+              <span class="bold">Unlimited Holo:</span> ${{ card.pricing.unlimitedHolo }}
+            </p>
+            <p v-if="card.pricing.firstEditionHolo">
+              <span class="bold">1st Edition Holo:</span> ${{ card.pricing.firstEditionHolo }}
             </p>
           </div>
           <div class="no-pricing" v-else>
@@ -60,7 +69,7 @@ const props = defineProps({
   .card {
     background-color: $light-blue;
     display: flex;
-    // gap: 1rem;
+    gap: 1.5rem;
     height: 15rem;
     width: 95%;
     padding: 1rem;
@@ -73,10 +82,9 @@ const props = defineProps({
       // display: inline-block;
       // height: 15rem;
       display: flex;
-      overflow: hidden;
+      // overflow: hidden;
       border-radius: 0.375rem;
       box-shadow: 2px 2px 0.5rem $shadow-black;
-      margin-right: 24px;
 
       // img {
       // height: 12rem;

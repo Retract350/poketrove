@@ -167,6 +167,7 @@ onBeforeMount(getSetsOnLoad);
 
 .search-container {
   width: 33rem;
+  border-radius: $radius-medium;
   // display: flex;
   // flex-direction: column;
 }
@@ -222,7 +223,7 @@ onBeforeMount(getSetsOnLoad);
 .search-by-dropdown {
   // width: 22%;
   height: 2rem;
-  background-color: $shade-white;
+  background-color: $shade-light-grey;
   // display: flex;
   // align-items: center;
   // padding: 1rem;
@@ -245,7 +246,7 @@ onBeforeMount(getSetsOnLoad);
 }
 
 .sets-dropdown {
-  background-color: $shade-white;
+  background-color: $shade-light-grey;
   height: 13rem;
   width: 97%;
   overflow-x: hidden;
