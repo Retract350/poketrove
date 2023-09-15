@@ -53,13 +53,14 @@ const getCards = async (cards: Boolean, term: string) => {
           number: entry.number,
           setDetails: entry.set,
           pricing: {
-            nonHolo: entry.tcgplayer?.prices?.normal?.market,
-            reverseHolo: entry.tcgplayer?.prices?.reverseHolofoil?.market,
-            holo: entry.tcgplayer.prices?.holofoil?.market,
+            nonHolo: entry?.tcgplayer?.prices?.normal?.market,
+            reverseHolo: entry?.tcgplayer?.prices?.reverseHolofoil?.market,
+            holo: entry?.tcgplayer?.prices?.holofoil?.market,
             firstEditionHolo:
-              entry.tcgplayer?.prices?.["1stEditionHolofoil"]?.market,
-            unlimitedHolo: entry.tcgplayer?.prices?.unlimitedHolofoil?.market,
+              entry?.tcgplayer?.prices?.["1stEditionHolofoil"]?.market,
+            unlimitedHolo: entry?.tcgplayer?.prices?.unlimitedHolofoil?.market,
           },
+          tcgplayer: entry?.tcgplayer?.url,
         });
       });
     } catch (err: any) {
@@ -109,13 +110,15 @@ const getCards = async (cards: Boolean, term: string) => {
             number: entry.number,
             setDetails: entry.set,
             pricing: {
-              nonHolo: entry.tcgplayer?.prices?.normal?.market,
-              reverseHolo: entry.tcgplayer?.prices?.reverseHolofoil?.market,
-              holo: entry.tcgplayer?.prices?.holofoil?.market,
+              nonHolo: entry?.tcgplayer?.prices?.normal?.market,
+              reverseHolo: entry?.tcgplayer?.prices?.reverseHolofoil?.market,
+              holo: entry?.tcgplayer?.prices?.holofoil?.market,
               firstEditionHolo:
-                entry.tcgplayer?.prices?.["1stEditionHolofoil"]?.market,
-              unlimitedHolo: entry.tcgplayer?.prices?.unlimitedHolofoil?.market,
+                entry?.tcgplayer?.prices?.["1stEditionHolofoil"]?.market,
+              unlimitedHolo:
+                entry?.tcgplayer?.prices?.unlimitedHolofoil?.market,
             },
+            tcgplayer: entry?.tcgplayer?.url,
           });
         });
       } catch (err: any) {

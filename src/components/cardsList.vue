@@ -13,7 +13,7 @@
           <p>
             <p><span class="bold">Set:</span> {{ card.setDetails.name }} ({{ card.setDetails.releaseDate.substring(0, 4) }})</p>
           </p>
-          <div class="pricing" v-if="card.pricing">
+          <div class="pricing" v-if="card.pricing.firstEditionHolo | card.pricing.unlimitedHolo | card.pricing.nonHolo | card.pricing.reverseHolo | card.pricing.holo">
             <p v-if="card.pricing.nonHolo">
               <span class="bold">Non-holo:</span> ${{ card.pricing.nonHolo }}
             </p>
@@ -34,6 +34,7 @@
             <p ><span>No price data available</span></p>
           </div>
         </div>
+        <a :href="card.tcgplayer" class="store-link" target="_blank">View card on TCGPlayer</a>
       </div>
     </div>
   </div>
@@ -103,6 +104,27 @@ const props = defineProps({
         display: flex;
         justify-content: space-between;
         border-bottom: 3px solid $bg-primary;
+        line-height: 1.7rem;
+      }
+
+      .set-pricing {
+        line-height: 2rem;
+      }
+
+      .store-link {
+        font-size: $font-small;
+        margin-top: auto;
+        margin-bottom: 12px;
+        color: $bg-primary;
+        font-weight: $font-medium;
+
+        &:hover {
+          color: $shade-grey;
+        }
+
+        // &:visited {
+        //    color: $bg-primary;
+        // }
       }
     }
   }
