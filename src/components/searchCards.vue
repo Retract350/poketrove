@@ -174,7 +174,7 @@ onBeforeMount(getSetsOnLoad);
 
 .search-inputs {
   display: grid;
-  grid-template-columns: 20% 0.125rem 80%;
+  grid-template-columns: 20% 2px 80%;
   width: 100%;
   height: 2rem;
   background-color: $shade-light-grey;
@@ -284,5 +284,15 @@ onBeforeMount(getSetsOnLoad);
 
   align-items: center;
   justify-content: space-between;
+}
+
+@media screen and (max-width: 600px) {
+  .search-container {
+    width: 26rem;
+  }
+
+  .search-inputs {
+    grid-template-columns: 25% 2px 75%;
+  }
 }
 </style>

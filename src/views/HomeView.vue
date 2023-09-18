@@ -11,11 +11,11 @@ import cardsList from "../components/cardsList.vue";
 
 <style lang="scss">
 .container {
-  width: 85vw;
+  width: 100vw;
   margin: 5rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7.5rem;
+  gap: 5rem;
 }
 </style>
