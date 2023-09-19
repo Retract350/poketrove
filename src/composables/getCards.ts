@@ -8,6 +8,7 @@ let cardsArr: Array<any> = [];
 const getCards = async (cards: Boolean, term: string) => {
   let data: any;
   let queryURL: string;
+  let error: string;
 
   cardsArr = [];
 
@@ -37,32 +38,35 @@ const getCards = async (cards: Boolean, term: string) => {
 
       console.log(data);
       // push cards into cardsArr
-      data.data.forEach((entry: any) => {
-        // cardsArr.push({
-        //   id: entry.id,
-        //   images: entry.images,
-        //   name: entry.name,
-        //   number: entry.number,
-        //   setDetails: entry.set,
-        //   pricing: entry.tcgplayer,
-        // });
-        cardsArr.push({
-          id: entry.id,
-          images: entry.images,
-          name: entry.name,
-          number: entry.number,
-          setDetails: entry.set,
-          pricing: {
-            nonHolo: entry?.tcgplayer?.prices?.normal?.market,
-            reverseHolo: entry?.tcgplayer?.prices?.reverseHolofoil?.market,
-            holo: entry?.tcgplayer?.prices?.holofoil?.market,
-            firstEditionHolo:
-              entry?.tcgplayer?.prices?.["1stEditionHolofoil"]?.market,
-            unlimitedHolo: entry?.tcgplayer?.prices?.unlimitedHolofoil?.market,
-          },
-          tcgplayer: entry?.tcgplayer?.url,
+      if (!data.error) {
+        data.data.forEach((entry: any) => {
+          // cardsArr.push({
+          //   id: entry.id,
+          //   images: entry.images,
+          //   name: entry.name,
+          //   number: entry.number,
+          //   setDetails: entry.set,
+          //   pricing: entry.tcgplayer,
+          // });
+          cardsArr.push({
+            id: entry.id,
+            images: entry.images,
+            name: entry.name,
+            number: entry.number,
+            setDetails: entry.set,
+            pricing: {
+              nonHolo: entry?.tcgplayer?.prices?.normal?.market,
+              reverseHolo: entry?.tcgplayer?.prices?.reverseHolofoil?.market,
+              holo: entry?.tcgplayer?.prices?.holofoil?.market,
+              firstEditionHolo:
+                entry?.tcgplayer?.prices?.["1stEditionHolofoil"]?.market,
+              unlimitedHolo:
+                entry?.tcgplayer?.prices?.unlimitedHolofoil?.market,
+            },
+            tcgplayer: entry?.tcgplayer?.url,
+          });
         });
-      });
+      }
     } catch (err: any) {
       console.error(err);
     }

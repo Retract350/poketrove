@@ -1,9 +1,9 @@
 <template>
   <div class="cards-list-container">
     <div class="card" v-for="card in testCardsArr" :key="card.id">
-      <!-- <div class="card-image"> -->
+      <div class="card-image">
         <img :src="card.images.small" :alt="card.name" />
-      <!-- </div> -->
+      </div>
       <div class="card-details">
         <div class="card-name">
           <p class="bold">{{ card.name }}</p>
@@ -72,9 +72,10 @@ const props = defineProps({
   .card {
     background-color: $light-blue;
     display: flex;
-    // gap: 1.5rem;
+    gap: 1.5rem;
+    align-items: center;
     justify-content: space-between;
-    height: 15rem;
+    max-height: 15rem;
     width: 95%;
     padding: 1rem;
     border-radius: $radius-medium;
@@ -82,41 +83,46 @@ const props = defineProps({
     margin: 0 auto;
     font-size: 1.125rem;
     
-    // .card-image {
-    //   // display: inline-block;
-    //   // height: 15rem;
-    //   display: flex;
-    //   // overflow: hidden;
-    //   border-radius: 0.375rem;
-    //   box-shadow: 2px 2px 0.5rem $shadow-black;
+    .card-image {
+      // display: inline-block;
+      // height: 15rem;
+      display: flex;
+      // overflow: hidden;
+      border-radius: 0.375rem;
+      box-shadow: 2px 2px 0.5rem $shadow-black;
+      height: 210px;
+      width: 150px;
       
-    // }
+    }
 
     img {
-      width: auto;
+      height: 100%;
+      width: 100%;
       border-radius: .375rem;
       }
       
       .card-details {
         width: 67%;
+        height: 100%;
         display: flex;
         flex-direction: column;
         gap: 12px;
+        line-height: 1.7rem;
         
         .card-name {
           display: flex;
           justify-content: space-between;
           border-bottom: 3px solid $bg-primary;
-          line-height: 1.7rem;
+          // line-height: 1.7rem;
           
         }
         
-        .set-pricing {
-          line-height: 2rem;
-        }
+        // .set-pricing {
+          // font-size: inherit;
+        // }
         
         .store-link {
-          font-size: $font-small;
+          // font-size: $font-small;
           margin-top: auto;
           margin-bottom: 12px;
           color: $bg-primary;
@@ -159,6 +165,30 @@ const props = defineProps({
       .cards-list-container {
         .card-details {
           font-size: $font-primary;
+        }
+
+        .card {
+
+          .card-image {
+            width: 120px;
+            height: 164px;
+          }
+
+          .card-details {
+            line-height: 1.3;
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 485px) {
+      .cards-list-container {
+        .card {
+          gap: .875rem;
+        }
+
+        .card-details, .store-link {
+          font-size: $font-mobile;
         }
       }
     }

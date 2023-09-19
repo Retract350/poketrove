@@ -20,7 +20,7 @@
 
   // height: 5rem;
   background-color: $bg-primary;
-  padding: 1rem 3rem;
+  padding: 1rem 1rem;
   width: 100vw;
 
   .site-name {

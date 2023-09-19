@@ -20,7 +20,7 @@
           <input
             type="text"
             class="search-input"
-            placeholder="Search..."
+            :placeholder="activeSearchBy.slice(0, -1) + ' Name'"
             :class="{ cornerRight: viewSetsDropdown }"
             v-model="searchTerm"
             @focus="toggleSetsDropdown"
@@ -293,6 +293,16 @@ onBeforeMount(getSetsOnLoad);
 
   .search-inputs {
     grid-template-columns: 25% 2px 75%;
+  }
+}
+
+@media screen and (max-width: 485px) {
+  .search-container {
+    width: 20rem;
+  }
+
+  .search-inputs {
+    grid-template-columns: 30% 2px 70%;
   }
 }
 </style>
