@@ -38,13 +38,10 @@
       </div>
     </div>
   </div>
-
-  <!-- <button @click="testShowCards = !testShowCards">toggle card render</button> -->
 </template>
 
 <script lang="ts" setup>
 import { PropType, computed, ref } from "vue";
-// import { cardsArr } from "../composables/getCards";
 
 const props = defineProps({
   testCardsArr: {
@@ -52,8 +49,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-// const testShowCards = ref(false);
 </script>
 
 <style lang="scss">
@@ -61,13 +56,10 @@ const props = defineProps({
 
 
 .cards-list-container {
-  // width: 100%;
   margin: 0 4rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 2rem;
-  // justify-content: center;
-  // align-items: center;
   
   .card {
     background-color: $light-blue;
@@ -84,10 +76,7 @@ const props = defineProps({
     font-size: 1.125rem;
     
     .card-image {
-      // display: inline-block;
-      // height: 15rem;
       display: flex;
-      // overflow: hidden;
       border-radius: 0.375rem;
       box-shadow: 2px 2px 0.5rem $shadow-black;
       height: 210px;
@@ -113,16 +102,9 @@ const props = defineProps({
           display: flex;
           justify-content: space-between;
           border-bottom: 3px solid $bg-primary;
-          // line-height: 1.7rem;
-          
         }
         
-        // .set-pricing {
-          // font-size: inherit;
-        // }
-        
         .store-link {
-          // font-size: $font-small;
           margin-top: auto;
           margin-bottom: 12px;
           color: $bg-primary;
@@ -131,17 +113,12 @@ const props = defineProps({
           &:hover {
             color: $shade-grey;
           }
-          
-          // &:visited {
-            //    color: $bg-primary;
-            // }
           }
         }
       }
     }
     
     .bold {
-      // font-size: 1.25rem;
       font-weight: $font-heavy;
     }
     

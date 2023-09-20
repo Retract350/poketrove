@@ -1,9 +1,6 @@
 <template>
   <nav class="nav">
     <div class="site-name">PokéTrove</div>
-    <!-- <div class="buttons">
-      <p class="button">More</p>
-    </div> -->
   </nav>
 </template>
 
@@ -18,7 +15,6 @@
   @include flex-align(center, space-between);
   @include shadow(1rem, $color-blue);
 
-  // height: 5rem;
   background-color: $bg-primary;
   padding: 1rem 1rem;
   width: 100vw;
@@ -29,20 +25,5 @@
     color: $color-red;
     text-shadow: 0 0 0.25rem $color-red;
   }
-
-  // .buttons {
-  //   @include flex(row);
-
-  //   color: $light-blue;
-  //   font-size: 1rem;
-
-  //   .button {
-  //     background-color: $color-purple;
-  //     font-size: 1rem;
-  //     padding: 0.625rem 1.5rem;
-  //     border-radius: $radius-medium;
-  //     margin: 0 1.25rem;
-  //   }
-  // }
 }
 </style>

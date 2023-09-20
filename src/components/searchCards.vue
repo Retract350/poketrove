@@ -2,6 +2,7 @@
   <div class="search-container">
     <form @submit.prevent="submitSearch">
       <div class="search-inputs" :class="{ cornerLeft: viewSearchByDropdown }">
+
         <!-- "Search By" element, default to Cards on load -->
         <a class="search-by" @click="toggleSearchByDropdown">
           {{ activeSearchBy }}
@@ -15,7 +16,7 @@
 
         <div class="column-border"></div>
 
-        <!-- Search by cards text area -->
+        <!-- Search term input/icon -->
         <div class="input-flex">
           <input
             type="text"
@@ -34,8 +35,7 @@
           />
         </div>
 
-        <!-- Add both "Search By" and "Search Sets" dropdowns -->
-        <!-- Change "Search By" dropdown -->
+        <!-- "Search By" dropdown -->
         <div
           class="search-by-dropdown"
           :class="{ hidden: !viewSearchByDropdown }"
@@ -70,13 +70,6 @@ import { getCards } from "../composables/getCards";
 import { PropType, Ref, computed, onBeforeMount, ref, watch } from "vue";
 import { getSetsOnLoad, setArray } from "@/composables/getSetsOnLoad";
 import cardsList from "./cardsList.vue";
-
-// const props = defineProps({
-//   setArray: {
-//     type: Array as PropType<setObject[]>,
-//     required: true,
-//   },
-// });
 
 const searchByCard = ref(true);
 
@@ -168,8 +161,6 @@ onBeforeMount(getSetsOnLoad);
 .search-container {
   width: 33rem;
   border-radius: $radius-medium;
-  // display: flex;
-  // flex-direction: column;
 }
 
 .search-inputs {
@@ -178,7 +169,6 @@ onBeforeMount(getSetsOnLoad);
   width: 100%;
   height: 2rem;
   background-color: $shade-light-grey;
-  // padding: 0 1rem;
   border-radius: $radius-medium;
 
   &.cornerLeft {
@@ -188,9 +178,7 @@ onBeforeMount(getSetsOnLoad);
   .search-by {
     display: flex;
     align-items: center;
-    // justify-content: space-between;
     height: 100%;
-    // border-right: 2px solid $bg-primary;
     font-size: $font-small;
     padding-left: 1rem;
 
@@ -221,15 +209,10 @@ onBeforeMount(getSetsOnLoad);
 }
 
 .search-by-dropdown {
-  // width: 22%;
   height: 2rem;
   background-color: $shade-light-grey;
-  // display: flex;
-  // align-items: center;
-  // padding: 1rem;
   font-size: $font-small;
   border-radius: 0 0 $radius-medium $radius-medium;
-  // border-right: 2px solid $bg-primary;
   border-top: 1px solid $shade-grey;
 }
 
