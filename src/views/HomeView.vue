@@ -6,7 +6,6 @@
 
 <script lang="ts" setup>
 import searchCards from "../components/searchCards.vue";
-import cardsList from "../components/cardsList.vue";
 </script>
 
 <style lang="scss">

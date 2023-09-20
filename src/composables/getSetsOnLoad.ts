@@ -1,16 +1,20 @@
+import { APIKey } from "./variables";
+
 const setArray: Array<any> = [];
 
 const getSetsOnLoad = async () => {
+  // Verify that setArray has not already been populated
   if (!setArray.length) {
     try {
       const res = await fetch("https://api.pokemontcg.io/v2/sets", {
         headers: {
-          "X-Api-Key": "f632b8f7-2990-4593-9768-584578b57697",
+          "X-Api-Key": APIKey,
         },
       });
 
       const returnObject = await res.json();
 
+      // Push set objects to setArray with necessary properties only
       returnObject.data.forEach((el: any) => {
         setArray.push({
           id: el.id,
@@ -18,8 +22,6 @@ const getSetsOnLoad = async () => {
           releaseDate: el.releaseDate,
         });
       });
-
-      console.log(setArray);
 
       // Sort setArray by date descending
       setArray.sort((a, b) =>

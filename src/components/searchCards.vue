@@ -64,9 +64,8 @@
 </template>
 
 <script lang="ts" setup>
-import setObject from "../types/setObject";
 import { getCards } from "../composables/getCards";
-import { PropType, Ref, computed, onBeforeMount, ref, watch } from "vue";
+import { Ref, onBeforeMount, ref } from "vue";
 import { getSetsOnLoad, setArray } from "@/composables/getSetsOnLoad";
 import cardsList from "./cardsList.vue";
 
@@ -84,10 +83,14 @@ const selectedSet = ref("");
 
 const cardsArr: Ref<Array<any>> = ref([]);
 
+const viewSetsDropdown = ref(false);
+
+// Toggle "Search By" dropdown
 function toggleSearchByDropdown(): void {
   viewSearchByDropdown.value = !viewSearchByDropdown.value;
 }
 
+// Toggle search parameter between "Cards" and "Sets"
 function toggleSearchBy(param: string): void {
   if (param === "card") {
     searchByCard.value = true;
@@ -102,40 +105,46 @@ function toggleSearchBy(param: string): void {
     altSearchBy.value = "Cards";
   }
 
+  // Close dropdown when an option is selected
   viewSearchByDropdown.value = false;
 }
 
+// Submit search function
 async function submitSearch() {
-  console.log(searchTerm.value);
-
   if (activeSearchBy.value === "Cards") {
     cardsArr.value = await getCards(searchByCard.value, searchTerm.value);
   } else {
     cardsArr.value = await getCards(searchByCard.value, selectedSet.value);
   }
 
+  // Reset search input on submission
   searchTerm.value = "";
 }
 
-const viewSetsDropdown = ref(false);
-
+// Toggle searchable Sets dropdown
 function toggleSetsDropdown(): void {
+  // Check if user is searching by set name
   if (searchByCard.value === false) {
     viewSetsDropdown.value = true;
   } else {
     viewSetsDropdown.value = false;
   }
+  // Close "Search by" dropdown if it was open
   viewSearchByDropdown.value = false;
 }
 
+// Update search input when a set object is selected from the dropdown
 function selectSet(set: any): void {
   selectedSet.value = set.id;
   searchTerm.value = set.name;
 
+  // Close dropdown after selecting a set
   viewSetsDropdown.value = false;
 }
 
+// Logic for searchable Sets dropdown
 function searchDropdown(set: any): Boolean {
+  // Format set names in dropdown for searchability
   let setString = (
     set.name +
     "(" +
@@ -143,6 +152,7 @@ function searchDropdown(set: any): Boolean {
     ")"
   ).toLowerCase();
 
+  // Check if user input matches any substring in a set name
   if (setString.includes(searchTerm.value.toLowerCase())) {
     return true;
   }
@@ -150,6 +160,7 @@ function searchDropdown(set: any): Boolean {
   return false;
 }
 
+// Start fetch request to get array of all set objects before page mounts
 onBeforeMount(getSetsOnLoad);
 </script>
 
