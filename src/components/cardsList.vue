@@ -34,7 +34,7 @@
             <p ><span>No price data available</span></p>
           </div>
         </div>
-        <a :href="card.tcgplayer" class="store-link" target="_blank">View card on TCGPlayer</a>
+        <a :href="card.tcgplayer" class="store-link" target="_blank" v-if="card.tcgplayer">View card on TCGPlayer</a>
       </div>
     </div>
   </div>
