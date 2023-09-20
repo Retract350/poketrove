@@ -1,6 +1,6 @@
 <template>
   <div class="cards-list-container">
-    <div class="card" v-for="card in testCardsArr" :key="card.id">
+    <div class="card" v-for="card in cardsArr" :key="card.id">
       <div class="card-image">
         <img :src="card.images.small" :alt="card.name" />
       </div>
@@ -44,7 +44,7 @@
 import { PropType, computed, ref } from "vue";
 
 const props = defineProps({
-  testCardsArr: {
+  cardsArr: {
     type: Array as PropType<any>,
     required: true,
   },

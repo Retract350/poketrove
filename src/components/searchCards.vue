@@ -2,7 +2,6 @@
   <div class="search-container">
     <form @submit.prevent="submitSearch">
       <div class="search-inputs" :class="{ cornerLeft: viewSearchByDropdown }">
-
         <!-- "Search By" element, default to Cards on load -->
         <a class="search-by" @click="toggleSearchByDropdown">
           {{ activeSearchBy }}
@@ -61,7 +60,7 @@
       </div>
     </form>
   </div>
-  <cardsList :test-cards-arr="cardsArr" />
+  <cardsList :cards-arr="cardsArr" />
 </template>
 
 <script lang="ts" setup>
