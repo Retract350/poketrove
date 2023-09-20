@@ -18,6 +18,9 @@
   background-color: $bg-primary;
   padding: 1rem 1rem;
   width: 100vw;
+  z-index: 15;
+  position: fixed;
+  top: 0;
 
   .site-name {
     font-size: $font-large;

@@ -1,4 +1,5 @@
 <template>
+  <loadingSpinner v-if="isPending" />
   <div class="search-container">
     <form @submit.prevent="submitSearch">
       <div class="search-inputs" :class="{ cornerLeft: viewSearchByDropdown }">
@@ -68,6 +69,7 @@ import { getCards } from "../composables/getCards";
 import { Ref, onBeforeMount, ref } from "vue";
 import { getSetsOnLoad, setArray } from "@/composables/getSetsOnLoad";
 import cardsList from "./cardsList.vue";
+import loadingSpinner from "./loadingSpinner.vue";
 
 const searchByCard = ref(true);
 
@@ -84,6 +86,8 @@ const selectedSet = ref("");
 const cardsArr: Ref<Array<any>> = ref([]);
 
 const viewSetsDropdown = ref(false);
+
+const isPending = ref(false);
 
 // Toggle "Search By" dropdown
 function toggleSearchByDropdown(): void {
@@ -111,6 +115,7 @@ function toggleSearchBy(param: string): void {
 
 // Submit search function
 async function submitSearch() {
+  isPending.value = !isPending.value;
   if (activeSearchBy.value === "Cards") {
     cardsArr.value = await getCards(searchByCard.value, searchTerm.value);
   } else {
@@ -119,6 +124,7 @@ async function submitSearch() {
 
   // Reset search input on submission
   searchTerm.value = "";
+  isPending.value = !isPending.value;
 }
 
 // Toggle searchable Sets dropdown

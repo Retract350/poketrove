@@ -10,8 +10,8 @@ import searchCards from "../components/searchCards.vue";
 
 <style lang="scss">
 .container {
-  width: 100vw;
-  margin: 5rem auto;
+  width: 100;
+  margin: 9rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
