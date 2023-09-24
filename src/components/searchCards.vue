@@ -133,7 +133,7 @@ function toggleSearchBy(param: string): void {
 
 // Submit search function
 async function submitSearch() {
-  if (searchError) return;
+  if (searchError.value) return;
 
   isPending.value = !isPending.value;
   if (activeSearchBy.value === "Cards") {
