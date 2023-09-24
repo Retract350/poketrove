@@ -100,11 +100,9 @@ const isPending = ref(false);
 
 const searchSubmitted = ref(false);
 
-// Check if user search input contains special character or spaces
+// Check if user search input contains special characters or spaces
 const regex = /\W|\d|\_/g;
 const searchError = computed((): Boolean => {
-  console.log("test regex");
-
   if (regex.test(searchTerm.value)) return true;
   return false;
 });
