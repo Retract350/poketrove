@@ -101,7 +101,7 @@ const isPending = ref(false);
 const searchSubmitted = ref(false);
 
 // Check if user search input contains special characters or spaces
-const regex = /\W|\d|\_/g;
+const regex = /\W|\d|\_/;
 const searchError = computed((): Boolean => {
   if (regex.test(searchTerm.value)) return true;
   return false;
@@ -133,6 +133,8 @@ function toggleSearchBy(param: string): void {
 
 // Submit search function
 async function submitSearch() {
+  if (searchError) return;
+
   isPending.value = !isPending.value;
   if (activeSearchBy.value === "Cards") {
     cardsArr.value = await getCards(searchByCard.value, searchTerm.value);
