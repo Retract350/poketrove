@@ -60,13 +60,22 @@
         </div>
       </div>
     </form>
+    <p class="error" v-if="searchError">
+      Searches may not contain special characters or spaces
+    </p>
   </div>
-  <cardsList :cards-arr="cardsArr" />
+  <cardsList :cards-arr="cardsArr" v-if="cardsArr.length" />
+  <div class="no-results-container" v-if="searchSubmitted && !cardsArr.length">
+    <p class="no-results">
+      0 results found...<br />
+      Please check spelling and try again
+    </p>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { getCards } from "../composables/getCards";
-import { Ref, onBeforeMount, ref } from "vue";
+import { Ref, computed, onBeforeMount, ref } from "vue";
 import { getSetsOnLoad, setArray } from "@/composables/getSetsOnLoad";
 import cardsList from "./cardsList.vue";
 import loadingSpinner from "./loadingSpinner.vue";
@@ -88,6 +97,15 @@ const cardsArr: Ref<Array<any>> = ref([]);
 const viewSetsDropdown = ref(false);
 
 const isPending = ref(false);
+
+const searchSubmitted = ref(false);
+
+// Check if user search input contains special characters or spaces
+const regex = /\W|\d|\_/;
+const searchError = computed((): Boolean => {
+  if (regex.test(searchTerm.value)) return true;
+  return false;
+});
 
 // Toggle "Search By" dropdown
 function toggleSearchByDropdown(): void {
@@ -115,6 +133,8 @@ function toggleSearchBy(param: string): void {
 
 // Submit search function
 async function submitSearch() {
+  if (searchError.value) return;
+
   isPending.value = !isPending.value;
   if (activeSearchBy.value === "Cards") {
     cardsArr.value = await getCards(searchByCard.value, searchTerm.value);
@@ -125,6 +145,7 @@ async function submitSearch() {
   // Reset search input on submission
   searchTerm.value = "";
   isPending.value = !isPending.value;
+  searchSubmitted.value = true;
 }
 
 // Toggle searchable Sets dropdown
@@ -177,6 +198,8 @@ onBeforeMount(getSetsOnLoad);
 .search-container {
   width: 33rem;
   border-radius: $radius-medium;
+  display: flex;
+  flex-direction: column;
 }
 
 .search-inputs {
@@ -285,6 +308,26 @@ onBeforeMount(getSetsOnLoad);
   justify-content: space-between;
 }
 
+.error {
+  font-size: $font-primary;
+  color: $color-red;
+  display: inline-block;
+  margin: 1.5rem 0.5rem 0 0;
+  align-self: flex-end;
+}
+
+.no-results-container {
+  width: 33rem;
+  text-align: center;
+
+  .no-results {
+    color: $shade-light-grey;
+    font-weight: $font-medium;
+    font-size: $font-primary;
+    line-height: 1.7;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .search-container {
     width: 26rem;
@@ -292,6 +335,10 @@ onBeforeMount(getSetsOnLoad);
 
   .search-inputs {
     grid-template-columns: 25% 2px 75%;
+  }
+
+  .no-results-container {
+    width: 26rem;
   }
 }
 
@@ -302,6 +349,16 @@ onBeforeMount(getSetsOnLoad);
 
   .search-inputs {
     grid-template-columns: 30% 2px 70%;
+  }
+
+  .error {
+    font-size: $font-small;
+    font-weight: $font-medium;
+    line-height: 1.4;
+  }
+
+  .no-results-container {
+    width: 20rem;
   }
 }
 </style>

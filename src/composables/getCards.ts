@@ -89,7 +89,7 @@ const getCards = async (cards: Boolean, term: string) => {
 
         const nextData = await res.json();
 
-        // Push resultimg cards to cardsArr
+        // Push resulting cards to cardsArr
         nextData.data.forEach((entry: any) => {
           cardsArr.push({
             id: entry.id,
