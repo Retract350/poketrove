@@ -1,6 +1,6 @@
 <template>
   <nav class="nav">
-    <div class="site-name">PokéTrove</div>
+    <a class="site-name" href="#">PokéTrove</a>
   </nav>
 </template>
 
@@ -27,6 +27,7 @@
     font-weight: $font-heavy;
     color: $color-red;
     text-shadow: 0 0 0.25rem $color-red;
+    text-decoration: none;
   }
 }
 </style>
