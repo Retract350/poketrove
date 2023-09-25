@@ -60,7 +60,7 @@
         </div>
       </div>
     </form>
-    <p class="error" v-if="searchError">
+    <p class="error" v-if="searchError && activeSearchBy === 'Cards'">
       Searches may not contain special characters or spaces
     </p>
   </div>
@@ -133,7 +133,7 @@ function toggleSearchBy(param: string): void {
 
 // Submit search function
 async function submitSearch() {
-  if (searchError.value) return;
+  if (searchError.value && activeSearchBy.value === "Cards") return;
 
   isPending.value = !isPending.value;
   if (activeSearchBy.value === "Cards") {
