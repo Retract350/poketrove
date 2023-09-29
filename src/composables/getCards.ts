@@ -37,6 +37,8 @@ const getCards = async (cards: Boolean, term: string) => {
       });
       data = await res.json();
 
+      console.log(data);
+
       // Push cards into cardsArr if there was no error from API
       if (!data.error) {
         data.data.forEach((entry: any) => {
@@ -57,6 +59,8 @@ const getCards = async (cards: Boolean, term: string) => {
                 entry?.tcgplayer?.prices?.unlimitedHolofoil?.market,
             },
             tcgplayer: entry?.tcgplayer?.url,
+            subtypes: entry.subtypes,
+            rarity: entry.rarity,
           });
         });
       }
@@ -107,6 +111,8 @@ const getCards = async (cards: Boolean, term: string) => {
                 entry?.tcgplayer?.prices?.unlimitedHolofoil?.market,
             },
             tcgplayer: entry?.tcgplayer?.url,
+            subtypes: entry.subtypes,
+            rarity: entry.rarity,
           });
         });
       } catch (err: any) {
@@ -115,6 +121,7 @@ const getCards = async (cards: Boolean, term: string) => {
     }
   }
 
+  console.log(cardsArr);
   // Return cardsArr for searchCards component to prop down to cardsList component
   return cardsArr;
 };
