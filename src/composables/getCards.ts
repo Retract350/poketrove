@@ -50,13 +50,16 @@ const getCards = async (cards: Boolean, term: string) => {
             number: entry.number,
             setDetails: entry.set,
             pricing: {
-              nonHolo: entry?.tcgplayer?.prices?.normal?.market,
-              reverseHolo: entry?.tcgplayer?.prices?.reverseHolofoil?.market,
-              holo: entry?.tcgplayer?.prices?.holofoil?.market,
+              nonHolo: entry?.tcgplayer?.prices?.normal?.market?.toFixed(2),
+              reverseHolo:
+                entry?.tcgplayer?.prices?.reverseHolofoil?.market?.toFixed(2),
+              holo: entry?.tcgplayer?.prices?.holofoil?.market?.toFixed(2),
               firstEditionHolo:
-                entry?.tcgplayer?.prices?.["1stEditionHolofoil"]?.market,
+                entry?.tcgplayer?.prices?.[
+                  "1stEditionHolofoil"
+                ]?.market?.toFixed(2),
               unlimitedHolo:
-                entry?.tcgplayer?.prices?.unlimitedHolofoil?.market,
+                entry?.tcgplayer?.prices?.unlimitedHolofoil?.market?.toFixed(2),
             },
             tcgplayer: entry?.tcgplayer?.url,
             subtypes: entry.subtypes,
